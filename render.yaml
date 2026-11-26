@@ -1,0 +1,16 @@
+# Render Blueprint for this repository.
+# Three files at the repo root: render.yaml, Dockerfile, studio.zip.
+services:
+  - type: web
+    name: lexivoice-studio
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: LEXIVOICE_MAX_JOBS
+        value: "1"
+      - key: LEXIVOICE_MAX_UPLOAD_MB
+        value: "120"
